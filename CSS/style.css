@@ -1,5 +1,5 @@
 /* nav.php */
-#btnNotif{
+/* #btnNotif{
     position: relative;
     /* display: flex; */
     /* margin-left: 754px; */
@@ -9,7 +9,7 @@
     bottom: 15px;
     position: relative;
     padding: 4px;  
-}
+} */
 
 /* Google Fonts Import Link */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
