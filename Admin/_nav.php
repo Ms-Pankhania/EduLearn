@@ -36,7 +36,7 @@
                             
                             while($rec = mysqli_fetch_array($res)){
                             ?>
-                            <li><a class="dropdown-item" href="#"><?php echo $rec["message"] ?></a></li>
+                            <li><a class="dropdown-item" href="#"><?php echo "You have a notification from ".$rec["name"] ?></a></li>
                         
 <?php } ?>
                             <!-- <li>

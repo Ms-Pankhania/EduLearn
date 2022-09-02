@@ -1,6 +1,6 @@
 <?php
 
-$con = mysqli_connect("localhost","root","","courses");
+$Cnn = mysqli_connect("localhost","root","","courses");
 
 
 ?>
