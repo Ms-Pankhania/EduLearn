@@ -31,10 +31,6 @@
     {
       $course_name = $_REQUEST["course_name"];
       $course_desc = $_REQUEST["course_desc"];
-      
-     
-      
-      
       $course_image = $_REQUEST["hdnImage"];
 
       if(!empty($_FILES["course_image"]["name"]))
@@ -72,7 +68,7 @@
   <form method="post" enctype="multipart/form-data" class="mx-3 mt-5 col-sm-6 p-3 jumbotron bg-light">
     <div class="heading">
       <span class="text-center">
-        <h1><?php if (isset($_REQUEST["view"])) {
+        <h1><?php if (isset($_SESSION["CourseID"])) {
               echo "Update Course";
             } else {
               echo "Add Course";
@@ -92,8 +88,8 @@
     <br />
     <div class="form-group">
       <label for="course_image">Course Image :</label>
-      <input type="text" name="hdnImage" value="<?php if (isset($rec)) echo $rec["course_img"]; ?>">
-      <?php if (isset($_REQUEST["view"])) {?>
+      <input type="hidden" name="hdnImage" value="<?php if (isset($rec)) echo $rec["course_img"]; ?>">
+      <?php if (isset($_SESSION["CourseID"])) {?>
       <img height="150px" width="150px" src="
       <?php
       if (isset($rec)) {
@@ -108,7 +104,7 @@
     </div>
     <br />
     <div class="text-center">
-      <input type="submit" class="btn btn-danger" name="btn_addCourse" value='<?php if (isset($_REQUEST["view"])) {
+      <input type="submit" class="btn btn-danger" name="btn_addCourse" value='<?php if (isset($_SESSION["CourseID"])) {
                                                                                 echo "UPDATE COURSE";
                                                                               } else {
                                                                                 echo "ADD COURSE";

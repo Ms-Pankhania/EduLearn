@@ -1,3 +1,4 @@
+<?php ob_start();?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +14,7 @@
 
 <body>
     <?php
-    ob_start();
+    
     include_once "connection.php";
     include_once "nav.php";
     $str = "select * from tblcourse";
@@ -30,7 +31,6 @@
         }
         header("Location:viewCourses.php?msg=" . $msg);
     }
-    header("Location:viewCourses.php");
 
 
     if (isset($_REQUEST["CourseID"])) {
@@ -65,7 +65,7 @@
                         <td><?php echo $rec["course_img"]; ?></td>
                         <td>
                             <!-- update Button -->
-                            <a href="?CourseID=<?php echo $rec["course_id"]; ?>" class="btn btn-link btn-success mr-3" name="view" value="view">
+                            <a href="?CourseID=<?php echo $rec["course_id"]; ?>" class="btn btn-success mr-3" name="view" value="view">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
 
