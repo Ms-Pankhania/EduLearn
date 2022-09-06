@@ -31,6 +31,11 @@
     }
     ?>
     <form method="POST" enctype="multipart/form-data" class="mx-3 mt-5 col-sm-6 p-3 jumbotron bg-light">
+        <?php
+        if (isset($msg)) {
+            echo $msg;
+        }
+        ?>
         <div class="heading text-center">
             <span>
                 <h1>Add Topic</h1>
@@ -52,16 +57,17 @@
             <select class="form-control" name="course_id">
                 <option selected disabled>Select Course</option>
                 <?php
-                    $str = "Select * from tblcourse";
-                    $res = mysqli_query($Cnn,$str);
-                    
-                    if(mysqli_num_rows($res)>0){
-                        while($rec = mysqli_fetch_array($res)){
-                        
+                $str = "Select * from tblcourse";
+                $res = mysqli_query($Cnn, $str);
+
+                if (mysqli_num_rows($res) > 0) {
+                    while ($rec = mysqli_fetch_array($res)) {
+
                 ?>
-                <option value="<?php echo $rec["course_id"]?>"><?php echo $rec["course_id"]." - ".$rec["course_name"];?></option>
+                        <option value="<?php echo $rec["course_id"] ?>"><?php echo $rec["course_id"] . " - " . $rec["course_name"]; ?></option>
                 <?php
-                        }}
+                    }
+                }
                 ?>
             </select>
         </div>
@@ -74,11 +80,7 @@
         <div class="text-center">
             <input type="submit" class="btn btn-danger" name="btn_addTopic" value="ADD TOPIC" />
         </div>
-        <?php
-        if (isset($msg)) {
-            echo $msg;
-        }
-        ?>
+
         </div>
     </form>
 </body>

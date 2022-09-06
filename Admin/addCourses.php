@@ -1,3 +1,4 @@
+<?php ob_start();?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,6 +9,7 @@
   <link rel="stylesheet" href="../CSS/style.css">
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <script src="../JS/jquery-3.1.1.min.js"></script>
 
 </head>
 
@@ -15,55 +17,107 @@
   <?php
   include_once "connection.php";
   include_once "nav.php";
-  if (isset($_REQUEST["btn_addCourse"])) {
-    // echo "HIII";
 
-    $course_name = $_REQUEST["course_name"];
-    $course_desc = $_REQUEST["course_desc"];
-    $course_image = $_FILES["course_image"]["name"];
-    $course_temp_name = $_FILES["course_image"]["tmp_name"];
-    $img_folder = "courseImages/" . $course_image;
-    move_uploaded_file($course_temp_name, $img_folder);
+  //echo "ID : = ".$_REQUEST["id"];
 
-    if ($course_name == "" | $course_desc == "" | $course_image == "") {
-      $msg = '<div class="alert alert-warning ml-5 mt-2 col-sm-12">All Fields Required!</div>';
-    } else {
-      $strIns = "insert into tblcourse values (null,'$course_name','$course_desc','$img_folder')";
-      mysqli_query($Cnn, $strIns);
-      $msg = '<div class="alert alert-success ml-5 mt-2 col-sm-12">Course Added Successfully!</div>';
-    }
+  if (isset($_SESSION["CourseID"])) 
+  {
+    $strUp = "select * from tblcourse where course_id={$_SESSION["CourseID"]}";
+    $rs = mysqli_query($Cnn, $strUp);
+    $rec = mysqli_fetch_array($rs);
+    //Checking if the button is clicked
   }
+    if (isset($_REQUEST["btn_addCourse"])) 
+    {
+      $course_name = $_REQUEST["course_name"];
+      $course_desc = $_REQUEST["course_desc"];
+      
+     
+      
+      
+      $course_image = $_REQUEST["hdnImage"];
 
+      if(!empty($_FILES["course_image"]["name"]))
+      {
+        
+        $course_image = $_FILES["course_image"]["name"];
+        $course_temp_name = $_FILES["course_image"]["tmp_name"];
+        $img_folder = "courseImages/" . $course_image;
+        move_uploaded_file($course_temp_name, $img_folder);
+        //checking if the fields are empty?
+      }
+      if ($course_name == "" | $course_desc == "")
+      {
+        $msg = urlencode('All Fields Required!');
+        die($msg);
+      }
+      //checking if the update id is set or not and if it is not set, let's insert 
+      if (!isset($_SESSION["CourseID"])) 
+      {
+        echo "Insert: ".$_REQUEST['id']; exit;
+        $strIns = "insert into tblcourse values (null,'$course_name','$course_desc','$img_folder')";
+        mysqli_query($Cnn, $strIns);
+        $msg = urlencode('Course Added Successfully!');
+      } 
+      else {
+        echo "Update".$_SESSION["CourseID"]; //exit;
+        $strUp = "update tblcourse set course_name='$course_name', course_desc='$course_desc', course_img='$course_image' where course_id={$_SESSION["CourseID"]}";
+        echo mysqli_query($Cnn, $strUp);
+        $msg = urlencode('Course Updated Successfully!');
+        header("Location:viewCourses.php?msg=".$msg);
+      }
+    }
+  
   ?>
-  <form method="POST" enctype="multipart/form-data" class="mx-3 mt-5 col-sm-6 p-3 jumbotron bg-light">
+  <form method="post" enctype="multipart/form-data" class="mx-3 mt-5 col-sm-6 p-3 jumbotron bg-light">
     <div class="heading">
       <span class="text-center">
-        <h1>Add Course</h1>
+        <h1><?php if (isset($_REQUEST["view"])) {
+              echo "Update Course";
+            } else {
+              echo "Add Course";
+            } ?></h1>
       </span>
     </div>
     <br />
     <div class="form-group">
       <label for="course_name">Course Name :</label>
-      <input type="text" class="form-control" name="course_name" aria-describedby="coursename" placeholder="Enter Name of Course">
+      <input type="text" class="form-control" name="course_name" value="<?php if (isset($rec)) echo $rec["course_name"]; ?>" aria-describedby="coursename" placeholder="Enter Name of Course">
     </div>
     <br />
     <div class="form-group">
       <label for="course_desc">Course Description :</label>
-      <textarea class="form-control" name="course_desc" rows="3" placeholder="Enter Course Description"></textarea>
+      <textarea class="form-control" name="course_desc" rows="3" placeholder="Enter Course Description"><?php if (isset($rec)) echo $rec["course_desc"]; ?></textarea>
     </div>
     <br />
     <div class="form-group">
       <label for="course_image">Course Image :</label>
-      <input type="file" class="form-control" name="course_image" placeholder="Enter Image for Course">
+      <input type="text" name="hdnImage" value="<?php if (isset($rec)) echo $rec["course_img"]; ?>">
+      <?php if (isset($_REQUEST["view"])) {?>
+      <img height="150px" width="150px" src="
+      <?php
+      if (isset($rec)) {
+        echo $rec["course_img"];
+      }
+      ?>" /> 
+      <?php } ?>
+
+      <input type="file" class="form-control" name="course_image" value="<?php if (isset($rec)) {
+                                                                            echo $rec['course_img'];
+                                                                          } ?>" placeholder="Enter Image for Course">
     </div>
     <br />
     <div class="text-center">
-      <input type="submit" class="btn btn-danger" name="btn_addCourse" value="ADD COURSE" />
+      <input type="submit" class="btn btn-danger" name="btn_addCourse" value='<?php if (isset($_REQUEST["view"])) {
+                                                                                echo "UPDATE COURSE";
+                                                                              } else {
+                                                                                echo "ADD COURSE";
+                                                                              } ?>' />
 
     </div>
     <?php
-    if (isset($msg)) {
-      echo $msg;
+    if (isset($_GET['msg'])) {
+      echo '<div class="alert alert-info ml-5 mt-2 col-sm-12">'.$_GET['msg'].'</div>';
     }
     ?>
     </div>

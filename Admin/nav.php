@@ -1,26 +1,12 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-
-<head>
-  <meta charset="UTF-8">
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../CSS/style.css">
-  <!-- CSS only -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-
-  <!-- <link rel="stylesheet" href="../CSS/bootstrap.min.css"> -->
-  <!-- <script src="../js/bootstrap.min.js"></script> -->
-</head>
-
-<body>
-  <div class="row">
+<div class="row">
   <div class="col-sm-3">
-  <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
+  <div class="d-flex flex-sm-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
       <svg class="bi pe-none me-2" width="40" height="32">
         <use xlink:href="#bootstrap"></use>
-      </svg>
+      </svg><!--<img src="../Images/logo.png" alt="" width="50" height="50" class="rounded-circle me-2"> -->
+      <!-- <box-icon name='graduation' type='solid' color='#f5b819' ></box-icon> -->
+      <i class='bx bxs-graduation me-2' style='color:#f5b819' ></i>
       <span class="fs-4">EduLearn</span>
     </a>
     <hr>
