@@ -15,9 +15,19 @@ include_once "../Admin/connection.php";
 </head>
 
 <body>
-    <?php include_once "navbar.php"; ?>
+<?php include_once "navbar.php";
+    $str = "select * from tbltopic ";
+    $rs = mysqli_query($Cnn, $str);
+    ?>
     <div class="container-fluid">
-        
+    <h1 class="mx-auto mt-4 p-5 ">Courses</h1>
+        <div class="row">
+        <?php
+        while ($rec = mysqli_fetch_array($rs)) {
+        ?>
+            
+        <?php } ?>
+        </div>
     </div>
 </body>
 </html>

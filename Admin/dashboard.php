@@ -1,3 +1,6 @@
+<?php ob_start();
+include_once "connection.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,14 +16,12 @@
 
 <body>
     <?php
-    include_once "connection.php";
-    include_once "nav.php";
 
     $str = "select * from tblcourse";
     $rs = mysqli_query($Cnn, $str);
     $total_courses = mysqli_num_rows($rs);
 
-    $str = "select * from tblregister";
+    $str = "select * from tblregister where status=1";
     $rs = mysqli_query($Cnn, $str);
     $total_students = mysqli_num_rows($rs);
 
@@ -29,47 +30,55 @@
     $total_feedbacks = mysqli_num_rows($rs);
 
     ?>
-    <div class="mx-3 mt-5 col-sm-8 p-3">
-        <div class="row">
-            <!-- Total Courses -->
-            <div class="col">
-                <div class="card" style="width: 16rem;">
-                    <img src="../Images/totalCourses.png" alt="" class="card-img-top">
-                    <div class="card-body bg-dark text-white text-center p-4">
-                        <div class="card-title">TOTAL COURSES</div>
-                        <p class="card-text"><?php echo $total_courses; ?></p>
-                        <a href="viewCourses.php" class="btn btn-primary">VIEW</a>
+    <div class="row">
+        <div class="col-sm-3 px-0">
+            <?php include_once "nav.php"; ?>
+        </div>
+        <div class="col-sm-9 px-0">
+            <?php include_once "_nav.php"; ?>
+            <div class="mx-3 mt-5 col-sm-11 p-3">
+                <div class="row">
+                    <!-- <?php echo $_SESSION['admin_id']; ?> -->
+                    <!-- Total Courses -->
+                    <div class="col">
+                        <div class="card" style="width: 16rem;">
+                            <img src="../Images/totalCourses.png" alt="" class="card-img-top">
+                            <div class="card-body bg-dark text-white text-center p-4">
+                                <div class="card-title">TOTAL COURSES</div>
+                                <p class="card-text"><?php echo $total_courses; ?></p>
+                                <a href="viewCourses.php" class="btn btn-primary">VIEW</a>
 
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Total Students -->
+                    <div class="col">
+                        <div class="card" style="width: 16rem;">
+                            <img src="../Images/Students.png" alt="" class="card-img-top">
+                            <div class="card-body bg-dark text-white text-center p-4">
+                                <div class="card-title">TOTAL STUDENTS</div>
+                                <p class="card-text"><?php echo $total_students; ?></p>
+                                <a href="viewUsers.php" class="btn btn-primary">VIEW</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Total Feedbacks -->
+                    <div class="col">
+                        <div class="card" style="width: 16rem;">
+                            <img src="../Images/totalFeedbacks.jpg" alt="" class="card-img-top">
+                            <div class="card-body bg-dark text-white text-center p-4">
+                                <div class="card-title">TOTAL FEEDBACKS</div>
+                                <p class="card-text"><?php echo $total_feedbacks; ?></p>
+                                <a href="viewFeedback.php" class="btn btn-primary">VIEW</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-
-            <!-- Total Students -->
-            <div class="col">
-                <div class="card" style="width: 16rem;">
-                    <img src="../Images/Students.png" alt="" class="card-img-top">
-                    <div class="card-body bg-dark text-white text-center p-4">
-                        <div class="card-title">TOTAL STUDENTS</div>
-                        <p class="card-text"><?php echo $total_students; ?></p>
-                        <a href="viewUsers.php" class="btn btn-primary">VIEW</a>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Total Feedbacks -->
-            <div class="col">
-                <div class="card" style="width: 16rem;">
-                    <img src="../Images/totalFeedbacks.jpg" alt="" class="card-img-top">
-                    <div class="card-body bg-dark text-white text-center p-4">
-                        <div class="card-title">TOTAL FEEDBACKS</div>
-                        <p class="card-text"><?php echo $total_feedbacks; ?></p>
-                        <a href="viewFeedback.php" class="btn btn-primary">VIEW</a>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </body>

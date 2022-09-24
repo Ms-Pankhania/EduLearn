@@ -1,9 +1,7 @@
-/* nav.php */
- #btnNotif{
-    position: relative;
-    /* display: flex; */
-    /* margin-left: 754px; */
-    left: 850px;
+div{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 #cntNotif{
     bottom: 15px;

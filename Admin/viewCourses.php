@@ -1,4 +1,6 @@
-<?php ob_start();?>
+<?php ob_start();
+include_once "connection.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,79 +15,89 @@
 </head>
 
 <body>
-    <?php
-    
-    include_once "connection.php";
-    include_once "nav.php";
-    $str = "select * from tblcourse";
-    $rs = mysqli_query($Cnn, $str);
-
-    if (isset($_REQUEST["delete"])) {
-        $strDel = "delete from tblcourse where course_id={$_REQUEST['id']}";
-        //echo $strDel;
-        if ($_REQUEST["id"] == 0) {
-            $msg = urlencode('Something went wrong!');
-        } else {
-            mysqli_query($Cnn, $strDel);
-            $msg = urlencode('Course Deleted Successfully!');
-        }
-        header("Location:viewCourses.php?msg=" . $msg);
-    }
-
-
-    if (isset($_REQUEST["CourseID"])) {
-        $_SESSION["CourseID"] = $_REQUEST["CourseID"];
-        header("location:addCourses.php");
-    }
-    ?>
-    <div class="container-fluid col-sm-9 mt-5 pe-5">
+    <div class="row">
+        <div class="col-sm-3 px-0">
+            <?php include_once "nav.php"; ?>
+        </div>
         <?php
-        if (isset($_GET['msg'])) {
-            echo '<div class="alert alert-info ml-5 mt-2 col-sm-12">' . $_GET['msg'] . '</div>';
+        $str = "select * from tblcourse";
+        $rs = mysqli_query($Cnn, $str);
+
+        if (isset($_REQUEST["DelID"])) {
+            // echo "ID= ".$_REQUEST["DelID"];
+            $dstr = "select * from tbltopic where course_id={$_REQUEST["DelID"]}";
+            $drs = mysqli_query($Cnn, $dstr);
+            // echo mysqli_num_rows($drs);
+            if (mysqli_num_rows($drs) == 0) {
+                $strDel = "delete from tblcourse where course_id={$_REQUEST["DelID"]}";
+                mysqli_query($Cnn, $strDel);
+                $msg = urlencode('Course Deleted Successfully!');
+                header("Location:viewCourses.php?msg=" . $msg);
+            } else {
+                $msg = urlencode('Empty Courses Can Only be deleted !');
+                header("Location:viewCourses.php?msg=" . $msg);
+            }
+            
+        } else if (isset($_REQUEST["CourseID"])) {
+            $_SESSION["CourseID"] = $_REQUEST["CourseID"];
+            header("location:addCourses.php?msg=".$msg);
+        } else {
+            $msg = urlencode('Something went wrong!');
+            // header("Location:viewCourses.php?msg=" . $msg);
         }
+
         ?>
-        <h1 class="text-center p-4">View Courses</h1>
-        <table class="table table-hover table-responsive ">
-            <thead class="table-dark">
-                <tr>
-                    <td scope="col">Course_name</td>
-                    <td scope="col">Course_desc</td>
-                    <td scope="col">Course_img</td>
-                    <td scope="col">Action</td>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="col-sm-9 px-0">
+            <?php include_once "_nav.php"; ?>
+            <div class="container-fluid pe-5">
                 <?php
-
-                while ($rec = mysqli_fetch_array($rs)) {
-                ?>
-                    <tr>
-                        <td><?php echo $rec["course_name"]; ?></td>
-                        <td><?php echo $rec["course_desc"]; ?></td>
-                        <td><?php echo $rec["course_img"]; ?></td>
-                        <td>
-                            <!-- update Button -->
-                            <a href="?CourseID=<?php echo $rec["course_id"]; ?>" class="btn btn-success mr-3" name="view" value="view">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-
-
-                            <!-- Delete Button -->
-                            <form action="" method="POST" class="d-inline">
-                                <input type="hidden" name="id" value="<?php echo $rec["course_id"]; ?>">
-                                <button type="submit" class="btn btn-danger" name="delete" value="delete">
-                                    <i class="bi bi-trash-fill"></i>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php
+                if (isset($_GET['msg'])) {
+                    echo '<div class="alert alert-info ml-5 mt-2 col-sm-12">' . $_GET['msg'] . '</div>';
                 }
                 ?>
-            </tbody>
-        </table>
+                <h1 class="text-center p-4">View Courses</h1>
+                <table class="table table-hover table-responsive ">
+                    <thead class="table-dark">
+                        <tr>
+                            <td scope="col">Course_name</td>
+                            <td scope="col">Course_desc</td>
+                            <td scope="col">Course_img</td>
+                            <td scope="col">Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+
+                        while ($rec = mysqli_fetch_array($rs)) {
+                        ?>
+                            <tr>
+                                <td><?php echo $rec["course_name"]; ?></td>
+                                <td><?php echo $rec["course_desc"]; ?></td>
+                                <td><?php echo $rec["course_img"]; ?></td>
+                                <td>
+                                    <!-- update Button -->
+                                    <a href="?CourseID=<?php echo $rec["course_id"]; ?>" class="btn btn-success mr-3" name="view" value="view">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+
+                                    <!-- Delete Button -->
+                                    <a href="?DelID=<?php echo $rec["course_id"]; ?>" class="btn btn-danger mr-3" name="delete" value="delete">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </a>
+
+
+
+                                </td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    </div>
+    
 </body>
 
 </html>

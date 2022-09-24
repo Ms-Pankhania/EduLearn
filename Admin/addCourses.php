@@ -1,4 +1,6 @@
-<?php ob_start();?>
+<?php ob_start();
+include_once "connection.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,110 +16,118 @@
 </head>
 
 <body>
-  <?php
-  include_once "connection.php";
-  include_once "nav.php";
+  <div class="row">
+    <div class="col-sm-3 px-0">
+      <?php include_once "nav.php"; ?>
+    </div>
+    <?php
 
-  //echo "ID : = ".$_REQUEST["id"];
+    if (isset($_SESSION["CourseID"])) {
+      $strUp = "select * from tblcourse where course_id={$_SESSION["CourseID"]}";
+      $rs = mysqli_query($Cnn, $strUp);
+      $rec = mysqli_fetch_array($rs);
+    }
 
-  if (isset($_SESSION["CourseID"])) 
-  {
-    $strUp = "select * from tblcourse where course_id={$_SESSION["CourseID"]}";
-    $rs = mysqli_query($Cnn, $strUp);
-    $rec = mysqli_fetch_array($rs);
-    //Checking if the button is clicked
-  }
-    if (isset($_REQUEST["btn_addCourse"])) 
-    {
+    if (isset($_REQUEST["btn_addCourse"])) {
       $course_name = $_REQUEST["course_name"];
       $course_desc = $_REQUEST["course_desc"];
       $course_image = $_REQUEST["hdnImage"];
+      
+      if (!empty($_FILES["course_image"]["name"])) {
 
-      if(!empty($_FILES["course_image"]["name"]))
-      {
-        
         $course_image = $_FILES["course_image"]["name"];
         $course_temp_name = $_FILES["course_image"]["tmp_name"];
         $img_folder = "courseImages/" . $course_image;
         move_uploaded_file($course_temp_name, $img_folder);
-        //checking if the fields are empty?
       }
-      if ($course_name == "" | $course_desc == "")
-      {
-        $msg = urlencode('All Fields Required!');
-        die($msg);
+      if ($course_name == "" | $course_desc == "") {
+        $msg = urlencode('All Fields are Required!');
+        header("Location:addCourses.php?msg=" . $msg);
+        
       }
       //checking if the update id is set or not and if it is not set, let's insert 
-      if (!isset($_SESSION["CourseID"])) 
-      {
-        echo "Insert: ".$_REQUEST['id']; exit;
+      else if (!isset($_SESSION["CourseID"])) {
+
         $strIns = "insert into tblcourse values (null,'$course_name','$course_desc','$img_folder')";
         mysqli_query($Cnn, $strIns);
         $msg = urlencode('Course Added Successfully!');
-      } 
-      else {
-        echo "Update".$_SESSION["CourseID"]; //exit;
+        header("Location:addCourses.php?msg=" . $msg);
+      } else {
+        echo "Update" . $_SESSION["CourseID"]; //exit;
         $strUp = "update tblcourse set course_name='$course_name', course_desc='$course_desc', course_img='$course_image' where course_id={$_SESSION["CourseID"]}";
         echo mysqli_query($Cnn, $strUp);
         $msg = urlencode('Course Updated Successfully!');
-        header("Location:viewCourses.php?msg=".$msg);
+        unset($_SESSION["CourseID"]);
+        header("Location:addCourses.php?msg=" . $msg);
       }
     }
-  
-  ?>
-  <form method="post" enctype="multipart/form-data" class="mx-3 mt-5 col-sm-6 p-3 jumbotron bg-light">
-    <div class="heading">
-      <span class="text-center">
-        <h1><?php if (isset($_SESSION["CourseID"])) {
-              echo "Update Course";
-            } else {
-              echo "Add Course";
-            } ?></h1>
-      </span>
-    </div>
-    <br />
-    <div class="form-group">
-      <label for="course_name">Course Name :</label>
-      <input type="text" class="form-control" name="course_name" value="<?php if (isset($rec)) echo $rec["course_name"]; ?>" aria-describedby="coursename" placeholder="Enter Name of Course">
-    </div>
-    <br />
-    <div class="form-group">
-      <label for="course_desc">Course Description :</label>
-      <textarea class="form-control" name="course_desc" rows="3" placeholder="Enter Course Description"><?php if (isset($rec)) echo $rec["course_desc"]; ?></textarea>
-    </div>
-    <br />
-    <div class="form-group">
-      <label for="course_image">Course Image :</label>
-      <input type="hidden" name="hdnImage" value="<?php if (isset($rec)) echo $rec["course_img"]; ?>">
-      <?php if (isset($_SESSION["CourseID"])) {?>
-      <img height="150px" width="150px" src="
-      <?php
-      if (isset($rec)) {
-        echo $rec["course_img"];
-      }
-      ?>" /> 
-      <?php } ?>
 
-      <input type="file" class="form-control" name="course_image" value="<?php if (isset($rec)) {
-                                                                            echo $rec['course_img'];
-                                                                          } ?>" placeholder="Enter Image for Course">
-    </div>
-    <br />
-    <div class="text-center">
-      <input type="submit" class="btn btn-danger" name="btn_addCourse" value='<?php if (isset($_SESSION["CourseID"])) {
-                                                                                echo "UPDATE COURSE";
-                                                                              } else {
-                                                                                echo "ADD COURSE";
-                                                                              } ?>' />
-
-    </div>
-    <?php
-    if (isset($_GET['msg'])) {
-      echo '<div class="alert alert-info ml-5 mt-2 col-sm-12">'.$_GET['msg'].'</div>';
-    }
     ?>
+
+    <div class="col-sm-9 px-0">
+      <?php include_once "_nav.php"; ?>
+      <form method="post" enctype="multipart/form-data" class="mx-3 p-3 jumbotron bg-light">
+        <div class="heading">
+          <span class="text-center">
+            <h1>
+              <?php
+              if (isset($_SESSION["CourseID"])) {
+                echo "ID : " . $_SESSION["CourseID"];
+                echo "Update Course";
+              } else {
+                echo "Add Course";
+              }
+              ?>
+            </h1>
+          </span>
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="course_name">Course Name :</label>
+          <input type="text" class="form-control" name="course_name" value="<?php if (isset($rec)) echo $rec["course_name"]; ?>" aria-describedby="coursename" placeholder="Enter Name of Course">
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="course_desc">Course Description :</label>
+          <textarea class="form-control" name="course_desc" rows="3" placeholder="Enter Course Description"><?php if (isset($rec)) echo $rec["course_desc"]; ?></textarea>
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="course_image">Course Image :</label>
+          <input type="hidden" name="hdnImage" value="<?php if (isset($rec)) echo $rec["course_img"]; ?>">
+          <?php if (isset($_SESSION["CourseID"])) { ?>
+            <img height="150px" width="150px" src="
+            <?php
+            if (isset($rec)) {
+              echo $rec["course_img"];
+            }
+            ?>" />
+          <?php } ?>
+
+          <input type="file" class="form-control" name="course_image" value="<?php if (isset($rec)) {
+                                                                                echo $rec['course_img'];
+                                                                              } ?>" placeholder="Enter Image for Course">
+        </div>
+        <br />
+        <div class="text-center">
+          <input type="submit" class="btn btn-danger" name="btn_addCourse" value='<?php if (isset($_SESSION["CourseID"])) {
+                                                                                    echo "UPDATE COURSE";
+                                                                                  } else {
+                                                                                    echo "ADD COURSE";
+                                                                                  } ?>' />
+
+        </div>
+        <?php
+        if (isset($_GET['msg'])) {
+          echo '<div class="alert alert-info ml-5 mt-2 col-sm-12">' . $_GET['msg'] . '</div>';
+        }
+        ?>
+      </form>
     </div>
-  </form>
+
+  </div>
+
+
 </body>
 
 </html>

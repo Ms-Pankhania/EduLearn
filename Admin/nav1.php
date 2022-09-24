@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-sm-3">
             <nav class="navbar navbar-expand-lg navbar-light bg-dark d-flex flex-sm-column flex-shrink-0 p-3 text-bg-darkflex-column flex-sm-column">
                 <div class="container-fluid">
@@ -22,8 +22,7 @@
                                 <svg class="bi pe-none me-2" width="40" height="32">
                                     <use xlink:href="#bootstrap"></use>
                                 </svg>
-                                <!--<img src="../Images/logo.png" alt="" width="50" height="50" class="rounded-circle me-2"> -->
-                                <!-- logo -->
+                                
                                 <i class='bx bxs-graduation me-2' style='color:#f5b819'></i>
                                 <span class="fs-4">EduLearn</span>
                                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +54,29 @@
                     </div>
                 </div>
             </nav>
+        </div> -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="#">Active</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Disabled</a>
+                </li>
+            </ul>
         </div>
+    </nav>
 </body>
 
 </html>
