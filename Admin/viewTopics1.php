@@ -2,6 +2,10 @@
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
  <?php
 include "connection.php";
+if(!isset($_SESSION['admin_id']))
+{
+  header("Location:login.php");
+}
 if (isset($_POST['request'])) {
     $req = $_POST['request'];
     $str = "select * from tbltopic where course_id=" . $req;

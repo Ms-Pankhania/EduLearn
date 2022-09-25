@@ -1,5 +1,8 @@
 <?php ob_start();
 include_once "connection.php";
+if(!isset($_SESSION['admin_id'])){
+  header("Location:login.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

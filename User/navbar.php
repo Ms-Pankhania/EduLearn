@@ -35,12 +35,30 @@ include_once "../Admin/connection.php";
           <li class="nav-item">
             <a class="nav-link" href="courses.php">Courses</a>
           </li>
+          <?php if(!isset($_SESSION['user_id'])){ ?>
           <li class="nav-item">
             <a class="nav-link" href="registration.php">Sign Up</a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="login.php">Sign In</a>
           </li>
+          <?php 
+          }else{ 
+           ?>
+           <li class="nav-item">
+            <a class="nav-link" href="feedback.php">Feedback</a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="userProfile.php">My Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="logOut.php">Sign Out</a>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link" href="#"><?php $_SESSION['user_email'] ?></a>
+          </li>
+          <?php } ?>
+          
         </ul>
       </div>
     </div>

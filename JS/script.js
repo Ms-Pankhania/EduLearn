@@ -1,6 +1,5 @@
 
   $(document).ready(function() {
-    alert("HELOOOOO")
     $("#fetchTopic").on('change', function() {
       var value = $(this).val();
       $.ajax({

@@ -1,9 +1,9 @@
 <?php ob_start();
-include_once "connection.php";
-if(!isset($_SESSION['admin_id']))
+if(!isset($_SESSION['user_id']))
 {
   header("Location:login.php");
-}
+}else{
+include_once "connection.php";
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +53,6 @@ if(!isset($_SESSION['admin_id']))
       <?php include_once "nav.php"; ?>
     </div>
     <div class="col-sm-9 px-0">
-      <?php include_once "_nav.php"; ?>
       <form method="post" class="mx-3 p-3 jumbotron bg-light">
         <div class="heading">
           <span class="text-center">
@@ -96,3 +95,4 @@ if(!isset($_SESSION['admin_id']))
 
 </html>
 
+<?php }?>
