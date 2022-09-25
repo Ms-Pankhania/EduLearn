@@ -15,9 +15,9 @@ include_once "../Admin/connection.php";
 </head>
 
 <body>
-  <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+  <nav class="navbar navbar-dark navbar-expand-lg sticky-top" style="background-color:#0f2d4e;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.php">
+      <a class="navbar-brand" href="index.php" style="color:#f5b819; font-weight:bold;font-size:26px;">
         <img src="../Images/logo.png" width="50" height="50" class="d-inline-block">
         EduLearn
       </a>
@@ -25,7 +25,7 @@ include_once "../Admin/connection.php";
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav justify-content-end ">
+        <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link " href="index.php">Home</a>
           </li>

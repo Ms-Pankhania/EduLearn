@@ -13,6 +13,16 @@ include_once "../Admin/connection.php";
   <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
   <script src="../JS/jquery-3.1.1.min.js"></script>
+  <style>
+    .backblue{
+            background-color:#0f2d4e;
+            color: #f5b819;
+        }
+        .backyellow{
+            background-color: #f5b819;
+            color: #0f2d4e;
+        }
+  </style>
 </head>
 
 <body>
@@ -21,21 +31,24 @@ include_once "../Admin/connection.php";
   $str = "select * from tbltopic where course_id=$course_id";
   $rs = mysqli_query($Cnn, $str);
   ?>
-  <div class="container-fluid">
-    <h1 class="mx-auto mt-4 p-5 "> Lessons </h1>
+  <div class="container-fluid backyellow">
+    <h1 class="p-2  text-center"> Lessons </h1>
     <div class="row">
         <?php
         while ($rec = mysqli_fetch_array($rs)) {
           $url = $rec['topic_url'];
         ?>
           <p>
-            <a class="btn btn-primary d-block" data-toggle="collapse" href="#t<?php echo $rec['topic_id']; ?>" role="button" aria-expanded="false">
+            <a class="btn backblue d-block" data-toggle="collapse" href="#t<?php echo $rec['topic_id']; ?>" role="button" aria-expanded="false">
               <?php echo $rec['topic_name'] ?>
             </a>
           </p>
           <div class="collapse" id="t<?php echo $rec['topic_id']; ?>">
             <div class="card card-body">
-              <iframe width="560" height="315" src="<?php echo str_replace("watch?v=", "embed/", $url); ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe width="500" height="315" src="<?php echo str_replace("watch?v=", "embed/", $url); ?>"
+               title="YouTube video player" frameborder="0" 
+               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
             </div>
           </div>
         <?php } ?>

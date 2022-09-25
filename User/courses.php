@@ -12,15 +12,24 @@ include_once "../Admin/connection.php";
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <script src="../JS/jquery-3.1.1.min.js"></script>
-    
+    <style>
+        .backblue{
+            background-color:#0f2d4e;
+            color: #f5b819;
+        }
+        .backyellow{
+            background-color: #f5b819;
+            color: #0f2d4e;
+        }
+    </style>
 </head>
 
 <body>
     <?php include_once "navbar.php";
     
     ?>
-    <div class="container-fluid">
-        <h1 class="mx-auto mt-2 p-2 ">Courses</h1>
+    <div class="container-fluid backyellow">
+        <h1 class=" p-2 text-center" >Courses</h1>
         <div class="row">
 
         <?php
@@ -37,7 +46,7 @@ include_once "../Admin/connection.php";
                     <div class="card-body">
                         <h4 class="card-title" ><?php echo $rec['course_name'] ?></h4>
                         <p class="card-text" ><?php echo $rec['course_desc'] ?></p>
-                        <a href="topics.php?course_id=<?= $course_id ?>" class="btn btn-primary">Enroll</a>
+                        <a href="topics.php?course_id=<?= $course_id ?>" class="btn btn-default">Enroll</a>
                     </div>
                 </div>
                 </a>
