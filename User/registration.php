@@ -22,13 +22,40 @@ include_once "../Admin/connection.php";
 
 <body style="background-color:#f5b819;">
   <?php include_once "navbar.php"; ?>
+  <?php
+  if (isset($_REQUEST['btnregi'])) {
+    $txtfname = $_REQUEST['txtfname'];
+    $txtlname = $_REQUEST['txtlname'];
+    $txtemail = $_REQUEST['txtemail'];
+    $txtpwd = $_REQUEST['txtpwd'];
+    $txtcpwd = $_REQUEST['txtcpwd'];
+    if ($txtfname == "" | $txtlname == "" | $txtemail == "" | $txtpwd == "" | $txtcpwd == "") {
+      $msg = urlencode("All Fields are Compulsory.");
+      header("Location:registration.php?msg=" . $msg);
+    }else{
+      if($txtpwd != $txtcpwd){
+        $msg = urlencode("Password and Confirm Password Must be Same.");
+        header("Location:registration.php?msg=" . $msg);
+      }else{
+        $_SESSION['fname']=$txtfname;
+        $_SESSION['lname']=$txtlname;
+        $_SESSION['email']=$txtemail;
+        $_SESSION['pwd']=$txtpwd;
+        header("Location:registerNext.php");
+      }
+    }
+  }
+  ?>
   <div class="row text-center">
-    <div class="col-sm-12 px-0 mt-3">
+    <div class="col-sm-12 px-0 py-3 mt-3">
       <form method="post" class="p-5 mx-auto jumbotron" style="width:700px;background-color:#0f2d4e;color: #f5b819;">
         <h1 class="mx-auto text-center"> SIGN UP </h1>
 
         <div class="form-group">
-          <input type="text" class="form-control" name="txtname" placeholder="Your Name" />
+          <input type="text" class="form-control" name="txtfname" placeholder="Your First Name" />
+        </div> <br />
+        <div class="form-group">
+          <input type="text" class="form-control" name="txtlname" placeholder="Your Last Name" />
         </div>
         <br />
         <div class="form-group">
@@ -44,17 +71,22 @@ include_once "../Admin/connection.php";
         </div>
         <br />
         <center>
-          <input type="submit" class="btn px-5" style="background-color:#f5b819;" value="REGISTER">
+          <input type="submit" class="btn px-5" style="background-color:#f5b819;" name="btnregi" value="NEXT">
           <br />
           Have Already an Account? <a href="login.php" style="color: #f5b819;"><u>Login Here</u></a><br />
         </center>
+        <?php
+        if (isset($_GET['msg'])) {
+          echo '<div class="alert alert-info ml-5 mt-2 col-sm-12">' . $_GET['msg'] . '</div>';
+        }
+        ?>
       </form>
     </div>
 
   </div>
   <div class="row">
-        <?php include_once "footer.php" ?>
-        </div>
+    <?php include_once "footer.php" ?>
+  </div>
 
 
 

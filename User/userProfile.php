@@ -6,7 +6,6 @@ if (!isset($_SESSION['user_id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -57,6 +56,7 @@ if (!isset($_SESSION['user_id'])) {
         } else {
             $strUp = "update tblregister set first_name='$user_fname', last_name='$user_lname',email_id='$user_email', contact_no='$user_contact', date_of_birth='$user_bdate', gender='$user_gender' where user_id={$_SESSION["user_id"]}";
             mysqli_query($Cnn, $strUp);
+            $_SESSION['user_email'] = $user_email;
             $msg = urlencode('Your Profile was Updated Successfully!');
             header("Location:userProfile.php?msg=" . $msg);
         }
@@ -87,7 +87,6 @@ if (!isset($_SESSION['user_id'])) {
         }
     }
     ?>
-
     <div class="container-fluid backyellow">
         <div class="row">
             <form method="post" class="mx-auto mt-3 p-3 jumbotron" style="width:800px;background-color:#0f2d4e;color: #f5b819;">
@@ -202,5 +201,4 @@ if (!isset($_SESSION['user_id'])) {
         <?php include_once "footer.php" ?>
     </div>
 </body>
-
 </html>

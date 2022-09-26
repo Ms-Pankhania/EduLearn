@@ -32,8 +32,8 @@ unset($_SESSION['user_email']);
         $rs = mysqli_query($Cnn, $strUp) or die(mysqli_error($Cnn));
         $rec = mysqli_fetch_array($rs);
         if (mysqli_num_rows($rs) == 1) {
-            $_SESSION['user_id'] = $rec['user_id'];
-            $_SESSION['user_email'] = $rec['email_id'];
+            echo $_SESSION['user_id'] = $rec['user_id'];
+            echo $_SESSION['user_email'] = $rec['email_id'];
             header("Location:userProfile.php");
         } else {
             $msg = urlencode('Invalid Login Credentials');
