@@ -1,8 +1,7 @@
 <?php
 ob_start();
 include_once "connection.php";
-if(!isset($_SESSION['admin_id']))
-{
+if (!isset($_SESSION['admin_id'])) {
   header("Location:login.php");
 }
 ?>
@@ -57,7 +56,7 @@ if(!isset($_SESSION['admin_id']))
                   while ($rec = mysqli_fetch_array($res)) {
 
                 ?>
-                    <option value="<?php echo $rec["course_id"] ?>"><?php echo $rec["course_name"]; ?></option>
+                    <option value="<?php echo $rec["course_id"] ?>"><?php echo $rec["course_id"] . " - " . $rec["course_name"]; ?></option>
                 <?php
                   }
                 }

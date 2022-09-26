@@ -70,12 +70,10 @@ if(!isset($_SESSION['admin_id'])){
                         <?php
                         $str = "Select * from tblcourse";
                         $res = mysqli_query($Cnn, $str);
-
                         if (mysqli_num_rows($res) > 0) {
                             while ($rec = mysqli_fetch_array($res)) {
-
                         ?>
-                                <option value="<?php echo $rec["course_id"] ?>"><?php echo $rec["course_id"] . " - " . $rec["course_name"]; ?></option>
+                        <option value="<?php echo $rec["course_id"] ?>"><?php echo $rec["course_name"]; ?></option>
                         <?php
                             }
                         }

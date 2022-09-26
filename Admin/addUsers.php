@@ -1,6 +1,6 @@
 <?php ob_start();
 include_once "connection.php";
-if(!isset($_SESSION['admin_id'])){
+if (!isset($_SESSION['admin_id'])) {
   header("Location:login.php");
 }
 ?>
@@ -24,42 +24,33 @@ if(!isset($_SESSION['admin_id'])){
       <?php include_once "nav.php"; ?>
     </div>
     <?php
-
-
-    //   //echo "ID : = ".$_REQUEST["id"];
-
-    //   if (isset($_SESSION["UserID"])) 
-    //   {
-    //     $strUp = "select * from tblUser where User_id={$_SESSION["UserID"]}";
-    //     $rs = mysqli_query($Cnn, $strUp);
-    //     $rec = mysqli_fetch_array($rs);
-    //     //Checking if the button is clicked
-    //   }
-    //     if (isset($_REQUEST["btn_addUser"])) 
-    //     {
-    //       $User_name = $_REQUEST["User_name"];
-    //       
-    //       if ($User_name == "" | $User_desc == "")
-    //       {
-    //         $msg = urlencode('All Fields Required!');
-    //         die($msg);
-    //       }
-    //       //checking if the update id is set or not and if it is not set, let's insert 
-    //       if (!isset($_SESSION["UserID"])) 
-    //       {
-    //         echo "Insert: ".$_REQUEST['id']; exit;
-    //         $strIns = "insert into tblUser values (null,'$User_name','$User_desc','$img_folder')";
-    //         mysqli_query($Cnn, $strIns);
-    //         $msg = urlencode('User Added Successfully!');
-    //       } 
-    //       else {
-    //         echo "Update".$_SESSION["UserID"]; //exit;
-    //         $strUp = "update tblUser set User_name='$User_name', User_desc='$User_desc', User_img='$User_image' where User_id={$_SESSION["UserID"]}";
-    //         echo mysqli_query($Cnn, $strUp);
-    //         $msg = urlencode('User Updated Successfully!');
-    //         header("Location:viewUsers.php?msg=".$msg);
-    //       }
-    //     }
+    if (isset($_SESSION["UserID"])) {
+      $strUp = "select * from tblregister where User_id={$_SESSION["UserID"]}";
+      $rs = mysqli_query($Cnn, $strUp) or die(mysqli_error($Cnn));
+      $req = mysqli_fetch_array($rs);
+    }
+    if (isset($_REQUEST["btn_addUser"])) {
+      $User_name = $_REQUEST["User_name"];
+      $email_id = $_REQUEST["email_id"];
+      $password = $_REQUEST["password"];
+      $contact = $_REQUEST["contact"];
+      if ($User_name == "" |$email_id == "" |$password == "" |$contact == ""  ) {
+        $msg = urlencode('All Fields Required!');
+        header("Location:addUsers.php?msg=" . $msg);
+      }
+      //checking if the update id is set or not and if it is not set, let's insert 
+      else if (!isset($_SESSION["UserID"])) {
+        $strIns = "insert into tblregister values (null,'$User_name','$User_desc','$img_folder')";
+        mysqli_query($Cnn, $strIns) or die(mysqli_error($Cnn));
+        $msg = urlencode('User Added Successfully!');
+        header("Location:addUsers.php?msg=" . $msg);
+      } else {
+        $strUp = "update tblregister set first_name='$User_name',email_id='$email_id',password='$password',contact_no='$contact' where user_id={$_SESSION["UserID"]}";
+        mysqli_query($Cnn, $strUp) or die(mysqli_error($Cnn));
+        $msg = urlencode('User Updated Successfully!');
+        header("Location:viewUsers.php?msg=" . $msg);
+      }
+    }
 
     ?>
     <div class="col-sm-9 px-0">
@@ -69,7 +60,7 @@ if(!isset($_SESSION['admin_id'])){
           <span class="text-center">
             <h1>
               <?php if (isset($_SESSION["UserID"])) {
-                // echo "Update User";
+                echo "Update User";
               } else {
                 echo "Add User";
               } ?></h1>
@@ -78,30 +69,30 @@ if(!isset($_SESSION['admin_id'])){
         <br />
         <div class="form-group">
           <label for="User_name">User Name :</label>
-          <input type="text" class="form-control" name="User_name" value="<?php if (isset($rec)) echo $rec["user_name"]; ?>" aria-describedby="Username" placeholder="Enter Name of User">
+          <input type="text" class="form-control" name="User_name" value="<?php if (isset($req)) echo $req['first_name']; ?>">
         </div>
         <br />
         <div class="form-group">
           <label for="email">Email :</label>
-          <input type="email" class="form-control" name="email" value="<?php if (isset($rec)) echo $rec["email_id"]; ?>" aria-describedby="email" placeholder="Enter Email ID of User">
+          <input type="email" class="form-control" name="email_id" value="<?php if (isset($req)) echo $req['email_id']; ?>" aria-describedby="email" placeholder="Enter Email ID of User">
         </div>
         <br />
         <div class="form-group">
           <label for="password">Password :</label>
-          <input type="password" class="form-control" name="password" value="<?php if (isset($rec)) echo $rec["password"]; ?>" aria-describedby="password" placeholder="Enter Password of User">
+          <input type="password" class="form-control" name="password" value="<?php if (isset($req)) echo $req['password']; ?>" aria-describedby="password" placeholder="Enter Password of User">
         </div>
         <br />
         <div class="form-group">
           <label for="contact">Contact :</label>
-          <input type="number" class="form-control" name="contact" value="<?php if (isset($rec)) echo $rec["contact"]; ?>" aria-describedby="contact" placeholder="Enter Contact Number of User">
+          <input type="text" class="form-control" name="contact" value="<?php if (isset($req)) echo $req['contact_no']; ?>" aria-describedby="contact" placeholder="Enter Contact Number of User">
         </div>
         <br />
 
         <div class="text-center">
           <input type="submit" class="btn btn-danger" name="btn_addUser" value='<?php if (isset($_SESSION["UserID"])) {
-                                                                                  echo "UPDATE User";
+                                                                                  echo "UPDATE USER";
                                                                                 } else {
-                                                                                  echo "ADD User";
+                                                                                  echo "ADD USER";
                                                                                 } ?>' />
 
         </div>

@@ -24,20 +24,15 @@ unset($_SESSION['admin_email']);
         $strUp = "select * from tbladmin where admin_email='$txtusername' and admin_password='$txtpwd'";
         $rs = mysqli_query($Cnn, $strUp) or die(mysqli_error($Cnn));
         $rec = mysqli_fetch_array($rs);
-        if( mysqli_num_rows($rs) == 1){
-            
-            $_SESSION['admin_id']=$rec['admin_id'];
-            $_SESSION['admin_email']=$rec['admin_email'];
-            header("Location:dashboard.php?msg=".$msg);
-        }
-        else{
+        if (mysqli_num_rows($rs) == 1) {
+            $_SESSION['admin_id'] = $rec['admin_id'];
+            $_SESSION['admin_email'] = $rec['admin_email'];
+            header("Location:dashboard.php");
+        } else {
             $msg = urlencode('Invalid Login Credentials');
-            header("Location:login.php?msg=".$msg);
+            header("Location:login.php?msg=" . $msg);
         }
     }
-    
-
-
     ?>
     <div class="row text-center">
         <div class="col-sm-12 px-0">
@@ -51,12 +46,10 @@ unset($_SESSION['admin_email']);
                 <div class="form-group p-2">
                     <input type="password" class="form-control" name="txtpwd" aria-describedby="txtpwd" placeholder="Enter Password">
                 </div>
-
                 <br />
                 <div class="form-group text-center">
-                    <input type="submit" class="btn btn-light" name="btnlogin" value="LOG IN"  >
+                    <input type="submit" class="btn btn-light" name="btnlogin" value="LOG IN">
                 </div>
-
                 <?php
                 if (isset($_GET['msg'])) {
                     echo '<div class="alert alert-info ml-5 mt-2 col-sm-12">' . $_GET['msg'] . '</div>';
@@ -68,4 +61,5 @@ unset($_SESSION['admin_email']);
 </body>
 <script src="../JS/script.js"></script>
 <script src="../JS/jquery-3.1.1.min.js"></script>
+
 </html>

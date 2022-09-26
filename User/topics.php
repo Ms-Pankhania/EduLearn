@@ -39,13 +39,18 @@ include_once "../Admin/connection.php";
           $url = $rec['topic_url'];
         ?>
           <p>
-            <a class="btn backblue d-block" data-toggle="collapse" href="#t<?php echo $rec['topic_id']; ?>" role="button" aria-expanded="false">
+            <a class="btn d-block" data-toggle="collapse" style="background-color:#0f2d4e;color:#f5b819" href="#t<?php echo $rec['topic_id']; ?>" role="button" aria-expanded="false">
               <?php echo $rec['topic_name'] ?>
             </a>
           </p>
           <div class="collapse" id="t<?php echo $rec['topic_id']; ?>">
-            <div class="card card-body">
-              <iframe width="500" height="315" src="<?php echo str_replace("watch?v=", "embed/", $url); ?>"
+            <div class="card card-body my-3 px-5" style="background-color:#0f2d4e;">
+              <iframe 
+              class="mx-auto"
+              width="560" 
+              height="315" 
+              src="
+                <?php echo str_replace("watch?v=", "embed/", $url); ?>"
                title="YouTube video player" frameborder="0" 
                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>

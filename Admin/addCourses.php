@@ -27,7 +27,7 @@ if(!isset($_SESSION['admin_id'])){
 
     if (isset($_SESSION["CourseID"])) {
       $strUp = "select * from tblcourse where course_id={$_SESSION["CourseID"]}";
-      $rs = mysqli_query($Cnn, $strUp);
+      $rs = mysqli_query($Cnn, $strUp) or die(mysqli_error($Cnn));
       $rec = mysqli_fetch_array($rs);
     }
 
@@ -45,20 +45,17 @@ if(!isset($_SESSION['admin_id'])){
       }
       if ($course_name == "" | $course_desc == "") {
         $msg = urlencode('All Fields are Required!');
-        header("Location:addCourses.php?msg=" . $msg);
-        
+        header("Location:addCourses.php?msg=" . $msg); 
       }
       //checking if the update id is set or not and if it is not set, let's insert 
       else if (!isset($_SESSION["CourseID"])) {
-
         $strIns = "insert into tblcourse values (null,'$course_name','$course_desc','$img_folder')";
-        mysqli_query($Cnn, $strIns);
+        mysqli_query($Cnn, $strIns)  or die(mysqli_error($Cnn));
         $msg = urlencode('Course Added Successfully!');
         header("Location:addCourses.php?msg=" . $msg);
       } else {
-        echo "Update" . $_SESSION["CourseID"]; //exit;
         $strUp = "update tblcourse set course_name='$course_name', course_desc='$course_desc', course_img='$course_image' where course_id={$_SESSION["CourseID"]}";
-        echo mysqli_query($Cnn, $strUp);
+        mysqli_query($Cnn, $strUp)  or die(mysqli_error($Cnn));
         $msg = urlencode('Course Updated Successfully!');
         unset($_SESSION["CourseID"]);
         header("Location:addCourses.php?msg=" . $msg);
@@ -75,7 +72,7 @@ if(!isset($_SESSION['admin_id'])){
             <h1>
               <?php
               if (isset($_SESSION["CourseID"])) {
-                echo "ID : " . $_SESSION["CourseID"];
+                // echo "ID : " . $_SESSION["CourseID"];
                 echo "Update Course";
               } else {
                 echo "Add Course";

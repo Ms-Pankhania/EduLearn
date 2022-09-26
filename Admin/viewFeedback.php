@@ -26,8 +26,8 @@ if(!isset($_SESSION['admin_id']))
         <?php
 
 
-        $str = "select f.*,r.user_name from tblfeedback f ,tblregister r where f.user_id=r.user_id";
-        $rs = mysqli_query($Cnn, $str);
+        $str = "select f.*,r.first_name,r.last_name from tblfeedback f ,tblregister r where f.user_id=r.user_id";
+        $rs = mysqli_query($Cnn, $str) or die(mysqli_error($Cnn));
 
         if (isset($_REQUEST["delete"])) {
             $strDel = "delete from tblfeedback where feedback_id={$_REQUEST['id']}";
@@ -63,7 +63,7 @@ if(!isset($_SESSION['admin_id']))
                         while ($rec = mysqli_fetch_array($rs)) {
                         ?>
                             <tr>
-                                <td><?php echo $rec["user_name"]; ?></td>
+                                <td><?php echo $rec["first_name"]." ".$rec["last_name"]; ?></td>
                                 <td><?php echo $rec["feedback_desc"]; ?></td>
 
                                 <td>

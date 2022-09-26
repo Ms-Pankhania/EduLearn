@@ -34,7 +34,7 @@ unset($_SESSION['user_email']);
         if (mysqli_num_rows($rs) == 1) {
             $_SESSION['user_id'] = $rec['user_id'];
             $_SESSION['user_email'] = $rec['email_id'];
-            header("Location:userProfile.php?msg=" . $msg);
+            header("Location:userProfile.php");
         } else {
             $msg = urlencode('Invalid Login Credentials');
             header("Location:login.php?msg=" . $msg);
@@ -63,7 +63,7 @@ unset($_SESSION['user_email']);
                 </center>
                 <?php
                 if (isset($_GET['msg'])) {
-                    echo '<div class="alert alert-info ml-5 mt-2 mb-0 col-sm-12">' . $_GET['msg'] . '</div>';
+                    echo '<div class="alert alert-info ml-5 mt-2 col-sm-12">' . $_GET['msg'] . '</div>';
                 }
                 ?>
             </form>

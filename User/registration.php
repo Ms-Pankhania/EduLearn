@@ -25,7 +25,7 @@ include_once "../Admin/connection.php";
   <div class="row text-center">
     <div class="col-sm-12 px-0 mt-3">
       <form method="post" class="p-5 mx-auto jumbotron" style="width:700px;background-color:#0f2d4e;color: #f5b819;">
-        <h1 class="mx-auto text-center"> CREATE AN ACCOUNT </h1>
+        <h1 class="mx-auto text-center"> SIGN UP </h1>
 
         <div class="form-group">
           <input type="text" class="form-control" name="txtname" placeholder="Your Name" />

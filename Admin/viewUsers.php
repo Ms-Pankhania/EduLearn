@@ -25,26 +25,20 @@ if(!isset($_SESSION['admin_id']))
             <?php include_once "nav.php"; ?>
         </div>
         <?php
-
-
         $str = "select * from tblregister where status=1";
-        // echo $str;
         $rs = mysqli_query($Cnn, $str);
         if (isset($_REQUEST["DelID"])) {
-            // echo $_REQUEST["DelID"];
             $strDel = "delete from tblregister where user_id={$_REQUEST["DelID"]}";
-            //echo $strDel;
             $dres = mysqli_query($Cnn, $strDel);
             if (mysqli_num_rows($dres) == 0) {
-                // $msg = urlencode('Something went wrong!');
+                $msg = urlencode('This user has given feedback. Please delete their feedback before deleting them.');
+                header("Location:viewUsers.php?msg=" . $msg);
             } else {
                 $msg = urlencode('User Deleted Successfully!');
+                header("Location:viewUsers.php?msg=" . $msg);
             }
-            // echo $msg;
-            header("Location:viewUsers.php?msg=" . $msg);
+            
         }
-
-
         if (isset($_REQUEST["UserID"])) {
             $_SESSION["UserID"] = $_REQUEST["UserID"];
             header("location:addUsers.php");
@@ -52,7 +46,6 @@ if(!isset($_SESSION['admin_id']))
         ?>
         <div class="col-sm-9 px-0">
             <?php include_once "_nav.php"; ?>
-
             <div class="container-fluid pe-5">
                 <?php
                 if (isset($_GET['msg'])) {
@@ -76,7 +69,7 @@ if(!isset($_SESSION['admin_id']))
                         while ($rec = mysqli_fetch_array($rs)) {
                         ?>
                             <tr>
-                                <td><?php echo $rec["user_name"]; ?></td>
+                                <td><?php echo $rec["first_name"]; ?></td>
                                 <td><?php echo $rec["email_id"]; ?></td>
                                 <td><?php echo $rec["password"]; ?></td>
                                 <td><?php echo $rec["contact_no"]; ?></td>

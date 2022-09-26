@@ -1,8 +1,7 @@
 <?php ob_start();
 include_once "connection.php";
-if(!isset($_SESSION['admin_id']))
-{
-  header("Location:login.php");
+if (!isset($_SESSION['admin_id'])) {
+    header("Location:login.php");
 }
 ?>
 <!DOCTYPE html>
@@ -32,19 +31,18 @@ if(!isset($_SESSION['admin_id']))
             $dstr = "select * from tbltopic where course_id={$_REQUEST["DelID"]}";
             $drs = mysqli_query($Cnn, $dstr);
             // echo mysqli_num_rows($drs);
-            if (mysqli_num_rows($drs) == 0) {
-                $strDel = "delete from tblcourse where course_id={$_REQUEST["DelID"]}";
-                mysqli_query($Cnn, $strDel);
+            $strDel = "delete from tblcourse where course_id={$_REQUEST["DelID"]}";
+            $del = mysqli_query($Cnn, $strDel);
+            if (mysqli_num_rows($del) == 0) {
                 $msg = urlencode('Course Deleted Successfully!');
                 header("Location:viewCourses.php?msg=" . $msg);
             } else {
                 $msg = urlencode('Empty Courses Can Only be deleted !');
                 header("Location:viewCourses.php?msg=" . $msg);
             }
-            
         } else if (isset($_REQUEST["CourseID"])) {
             $_SESSION["CourseID"] = $_REQUEST["CourseID"];
-            header("location:addCourses.php?msg=".$msg);
+            header("location:addCourses.php?");
         } else {
             $msg = urlencode('Something went wrong!');
             // header("Location:viewCourses.php?msg=" . $msg);
@@ -101,7 +99,7 @@ if(!isset($_SESSION['admin_id']))
             </div>
         </div>
     </div>
-    
+
 </body>
 
 </html>
