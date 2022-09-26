@@ -194,9 +194,12 @@ if (!isset($_SESSION['user_id'])) {
         <div class="row">
             <div class="mx-auto mt-3 p-3 jumbotron" style="width:500px;background-color:#0f2d4e;color: #f5b819;">
                 <h1 class="text-center">Enrolled Courses</h1>
-                
+
             </div>
         </div>
+    </div>
+    <div class="row">
+        <?php include_once "footer.php" ?>
     </div>
 </body>
 

@@ -35,7 +35,7 @@ include_once "../Admin/connection.php";
 <body>
   <?php include_once "navbar.php"; ?>
   <div class="container-fluid text-center">
-    <h1 style="padding-top:200px; font-size:60px; font-weight:bolder;">About Us</h1>
+    <h1 style="padding-top:50px; font-size:60px; font-weight:bolder;">About Us</h1>
     <br/>
     <p>
       Video-based learning is the use of video to teach knowledge and skills. Chances are at some point in your life you have learned something from watching a video, whether it was in elementary school in science class or a youtube tutorial.
@@ -61,6 +61,9 @@ include_once "../Admin/connection.php";
 
     </p>
   </div>
+  <div class="row">
+        <?php include_once "footer.php" ?>
+        </div>
 </body>
 
 </html>

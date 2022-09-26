@@ -27,7 +27,7 @@ include_once "../Admin/connection.php";
 <body>
     <?php include_once "navbar.php"; ?>
     <div class="container-fluid">
-        <h1 style="margin-top:250px; margin-left:500px; font-size:50px;">EduLearn</h1>
+        <h1 style="margin-top:50px; margin-left:500px; font-size:50px;">EduLearn</h1>
         <p style="font-size: 30px; text-align:center; margin-top:50px;">
         Our website provides you a platform where you can learn coding <br/>
         for free in short time without searching for content on different platforms<br/>
@@ -36,5 +36,8 @@ include_once "../Admin/connection.php";
 
         <a href="courses.php" class="btn btn-warning mr-3" style="margin-left:800px; margin-top: 20px;"><b style="font-size: 30px;">SHOW COURSES</b></a>
     </div>
+    <div class="row">
+        <?php include_once "footer.php" ?>
+        </div>
 </body>
 </html>

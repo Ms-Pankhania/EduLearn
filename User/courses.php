@@ -55,6 +55,9 @@ include_once "../Admin/connection.php";
             
         <?php } ?>
         </div>
+        <div class="row">
+        <?php include_once "footer.php" ?>
+        </div>
 </body>
 
 </html>
