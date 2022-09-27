@@ -27,14 +27,14 @@ include_once "../Admin/connection.php";
 <body>
     <?php include_once "navbar.php"; ?>
     <div class="container-fluid">
-        <h1 style="margin-top:50px; margin-left:500px; font-size:50px;">EduLearn</h1>
-        <p style="font-size: 30px; text-align:center; margin-top:50px;">
+        <h1 class="mt-5" style="margin-left:500px; font-size:50px;">EduLearn</h1>
+        <p style="font-size: 30px;" class="mt-5 text-center">
         Our website provides you a platform where you can learn coding <br/>
         for free in short time without searching for content on different platforms<br/>
         because our website contains everything at a single place. <br/>
         Our website collects all the important and simple youtube videos and put them together for users to learn easily.</p>
 
-        <a href="courses.php" class="btn btn-warning mr-3" style="margin-left:800px; margin-top: 20px;"><b style="font-size: 30px;">SHOW COURSES</b></a>
+        <a href="courses.php" class="btn mr-3 my-4" style="margin-left:800px;font-size: 30px;background-color:#f5b819;color:#0f2d4e!important;">SHOW COURSES</a>
     </div>
     <div class="row">
         <?php include_once "footer.php" ?>

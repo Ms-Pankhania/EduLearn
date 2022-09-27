@@ -13,11 +13,12 @@ include_once "../Admin/connection.php";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <script src="../JS/jquery-3.1.1.min.js"></script>
     <style>
-        .backblue{
-            background-color:#0f2d4e;
+        .backblue {
+            background-color: #0f2d4e;
             color: #f5b819;
         }
-        .backyellow{
+
+        .backyellow {
             background-color: #f5b819;
             color: #0f2d4e;
         }
@@ -25,39 +26,78 @@ include_once "../Admin/connection.php";
 </head>
 
 <body>
-    <?php include_once "navbar.php";
-    
+    <?php include_once "navbar.php";?>
+   <?php
+    if (isset($_GET['course_id'])) {
+        echo "HI";
+        if (isset($_SESSION['user_id'])) {
+            echo "HI";
+            $user_id = $_SESSION['user_id'];
+            $course_id = $_SESSION['course_id'];
+            $strIns = "insert into tblenroll values(null,$user_id,$course_id)";
+            mysqli_query($Cnn, $strIns) or die(mysqli_error($Cnn));
+            $msg = urlencode("Course Enrolled Successfully. Happy Learning..~!");
+            header("Location:courses.php?msg=" . $msg);
+        }
+    }
     ?>
     <div class="container-fluid backyellow">
-        <h1 class=" p-2 text-center" >Courses</h1>
+        <h1 class=" p-2 text-center">Courses</h1>
+        <?php
+          if (isset($_GET['msg'])) {
+            echo '<div class="alert alert-info mx-auto mt-2 col-sm-8">' . $_GET['msg'] . '</div>';
+          }
+          ?>
         <div class="row">
 
-        <?php
-        $str = "select * from tblcourse limit 3";
-        $rs = mysqli_query($Cnn, $str);
-        while ($rec = mysqli_fetch_array($rs)) {
-            $course_id = $rec['course_id'];
-        ?>
-        
-            <div class="col-sm-4 mt-2 p-2">
-            <a href="topics.php" style="text-decoration: none;color: black;">
-                <div class="card">
-                    <img class="card-img-top" src="<?php echo '../Admin/'.$rec['course_img'] ?>">
-                    <div class="card-body">
-                        <h4 class="card-title" ><?php echo $rec['course_name'] ?></h4>
-                        <p class="card-text" ><?php echo $rec['course_desc'] ?></p>
-                        <a href="topics.php?course_id=<?= $course_id ?>" class="btn btn-default">Enroll</a>
-                    </div>
-                </div>
-                </a>
+            <div class="card-deck" style="display:flex">
+                <?php
+                 
+                $str = "select * from tblcourse limit 3";
+                $rs = mysqli_query($Cnn, $str);
+                while ($rec = mysqli_fetch_array($rs)) {
+                    $course_id = $rec['course_id'];
+                    if (isset($_SESSION['user_id'])) {
+                        $strIns = "select * from tblenroll where user_id=".  $_SESSION['user_id'];
+                        $result = mysqli_query($Cnn, $strIns) or die(mysqli_error($Cnn));
+                        // print_r($courses = mysqli_fetch_array($result));
+                    }
+                ?>
+                    <a href="
+                     <?php
+                        if (isset($_SESSION['user_id'])) {
+                            echo  "topics.php?course_id=$course_id";
+                        } else {
+                            $msg = urlencode("You need to login first to view the content of course.");
+                            echo "login.php?msg=$msg";
+                        }
+                        ?>" style="text-decoration: none;color: black;">
+                        <div class="card col-sm-4 m-2" style="width:26rem;">
+                            <img class="card-img-top" src="<?php echo '../Admin/' . $rec['course_img'] ?>">
+                            <div class="card-body">
+                                <h4 class="card-title"><?php echo $rec['course_name'] ?></h4>
+                                <p class="card-text"><?php echo $rec['course_desc'] ?></p>
+                                <div class="text-muted">Price : Free</div>
+                                <a href="
+                                <?php if (!isset($_SESSION['user_id'])) {
+                                    $msg = urlencode("You need to login first to enroll the course.");
+                                    echo "login.php?msg=$msg";
+                                } else {
+                                    $_SESSION['course_id']=$course_id;
+                                    echo "courses.php?course_id=".$course_id;
+                                } ?>" name="btnsubmit" style="margin-left:130px;background-color:#0f2d4e;" class="btn px-5">
+                                    Enroll                
+                                </a>
+                            </div>
+                        </div>
+                    </a>
+                <?php } ?>
             </div>
-        
-            
-        <?php } ?>
         </div>
-        <div class="row">
+    </div>
+    <div class="row">
         <?php include_once "footer.php" ?>
-        </div>
+    </div>
 </body>
 
 </html>

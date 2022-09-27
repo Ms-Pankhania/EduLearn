@@ -1,10 +1,7 @@
-
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
- <?php
+<?php
 include "connection.php";
-if(!isset($_SESSION['admin_id']))
-{
-  header("Location:login.php");
+if (!isset($_SESSION['admin_id'])) {
+    header("Location:login.php");
 }
 if (isset($_POST['request'])) {
     $req = $_POST['request'];
@@ -14,10 +11,16 @@ if (isset($_POST['request'])) {
 }
 ?>
 <table class="table table-hover table-responsive caption-top">
+    <div name="msg"></div>
+    <?php
+    if (isset($_GET['msg'])) {
+        echo '<div class="alert alert-info ml-5 mt-2 col-sm-12">' . $_GET['msg'] . '</div>';
+    }
+    ?>
     <?php if ($count) {
     ?>
         <caption class="text-center">
-            <h3>table name</h3>
+            <!-- <h3>table name</h3> -->
         </caption>
         <thead class="table-dark">
             <tr>
@@ -42,12 +45,12 @@ if (isset($_POST['request'])) {
                     <td><?php echo $row['topic_url'] ?></td>
                     <td>
                         <!-- update Button -->
-                        <a href="?CourseID=<?php echo $rec["course_id"]; ?>" class="btn btn-success mr-3" name="view" value="view">
+                        <a href="?TopicID=<?php echo $row["topic_id"]; ?>" class="btn btn-success mr-3" name="view" value="view">
                             <i class="bi bi-pencil-square"></i>
                         </a>
 
                         <!-- Delete Button -->
-                        <a href="?DelID=<?php echo $rec["course_id"]; ?>" class="btn btn-danger mr-3" name="delete" value="delete">
+                        <a href="?DelID=<?php echo $row["topic_id"]; ?>" class="btn btn-danger mr-3" name="delete" value="delete">
                             <i class="bi bi-trash-fill"></i>
                         </a>
                     </td>
@@ -58,5 +61,4 @@ if (isset($_POST['request'])) {
         </tbody>
 </table>
 <?php
-
 ?>
