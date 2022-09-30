@@ -30,22 +30,23 @@ if (!isset($_SESSION['admin_id'])) {
       $req = mysqli_fetch_array($rs);
     }
     if (isset($_REQUEST["btn_addUser"])) {
-      $User_name = $_REQUEST["User_name"];
+      $first_name = $_REQUEST["first_name"];
+      $last_name = $_REQUEST["last_name"];
       $email_id = $_REQUEST["email_id"];
       $password = $_REQUEST["password"];
       $contact = $_REQUEST["contact"];
-      if ($User_name == "" |$email_id == "" |$password == "" |$contact == ""  ) {
-        $msg = urlencode('All Fields Required!');
+      if ($first_name == "" | $email_id == "" | $password == "" | $contact == ""  | $last_name == "") {
+        $msg = urlencode('All Fields are Required!');
         header("Location:addUsers.php?msg=" . $msg);
       }
       //checking if the update id is set or not and if it is not set, let's insert 
       else if (!isset($_SESSION["UserID"])) {
-        $strIns = "insert into tblregister values (null,'$User_name','$User_desc','$img_folder')";
+        $strIns = "insert into tblregister(first_name,last_name,email_id,password,contact_no,status) values ('$first_name','$last_name','$email_id','$password','$contact',1)";
         mysqli_query($Cnn, $strIns) or die(mysqli_error($Cnn));
         $msg = urlencode('User Added Successfully!');
         header("Location:addUsers.php?msg=" . $msg);
       } else {
-        $strUp = "update tblregister set first_name='$User_name',email_id='$email_id',password='$password',contact_no='$contact' where user_id={$_SESSION["UserID"]}";
+        $strUp = "update tblregister set first_name='$first_name',last_name='$last_name',email_id='$email_id',password='$password',contact_no='$contact' where user_id={$_SESSION["UserID"]}";
         mysqli_query($Cnn, $strUp) or die(mysqli_error($Cnn));
         $msg = urlencode('User Updated Successfully!');
         header("Location:viewUsers.php?msg=" . $msg);
@@ -68,8 +69,13 @@ if (!isset($_SESSION['admin_id'])) {
         </div>
         <br />
         <div class="form-group">
-          <label for="User_name">User Name :</label>
-          <input type="text" class="form-control" name="User_name" value="<?php if (isset($req)) echo $req['first_name']; ?>">
+          <label for="first_name">First Name :</label>
+          <input type="text" class="form-control" name="first_name" value="<?php if (isset($req)) echo $req['first_name']; ?>" placeholder="Enter First Name of User">
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="last_name">Last Name :</label>
+          <input type="text" class="form-control" name="last_name" value="<?php if (isset($req)) echo $req['last_name']; ?>" placeholder="Enter last Name of User">
         </div>
         <br />
         <div class="form-group">

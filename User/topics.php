@@ -28,7 +28,7 @@ include_once "../Admin/connection.php";
 <body>
   <?php include_once "navbar.php";
   $course_id = $_GET['course_id'];
-  $str = "select * from tbltopic where course_id=$course_id";
+  $str = "select * from tbltopic where course_id={$course_id}";
   $rs = mysqli_query($Cnn, $str);
   ?>
   <div class="container-fluid backyellow">

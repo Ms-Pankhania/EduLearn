@@ -87,6 +87,7 @@ if (!isset($_SESSION['user_id'])) {
             header("Location:userProfile.php?mesg=" . $mesg);
         }
     }
+   
     ?>
     <div class="container-fluid backyellow">
         <div class="row">
@@ -192,28 +193,36 @@ if (!isset($_SESSION['user_id'])) {
         </div>
         <!-- END OF CHANGE PASSWORD BLOCK -->
         <div class="row mb-3">
-            <div class="mx-auto mt-3 p-3 jumbotron" style="width:500px;background-color:#0f2d4e;color: #f5b819;">
+            <div class="mx-auto mt-3 p-2 jumbotron" style="width:fit-content;background-color:#0f2d4e;color: #f5b819;">
                 <h1 class="text-center">My Courses</h1>
-                <table class="text-center" style="margin-left:150px;">
-                    <?php
-                    $strjoin = "select c.* from tblcourse as c, tblenroll as e where c.course_id=e.course_id and e.user_id=" . $_SESSION['user_id'];
-                    $result = mysqli_query($Cnn, $strjoin) or die(mysqli_error($Cnn));
-                    if (mysqli_num_rows($result) > 0) {
-                        while ($mycourses = mysqli_fetch_array($result)) {
-                            $course_id = $mycourses["course_id"];
-                    ?>
-                            <tr>
-                                <td><h3 class='mx-auto p-2'><a class="btn"  href="<?php echo 'topics.php?course_id='.$course_id; ?>" style="background-color:#f5b819;color:#0f2d4e !important">
-                                        <?php echo $mycourses['course_name']; ?>
-                                    </a></h3>
+                <table class="text-center">
+                    <tr>
+                        <?php
+                        $strjoin = "select c.* from tblcourse as c, tblenroll as e where c.course_id=e.course_id and e.user_id=" . $_SESSION['user_id'];
+                        $result = mysqli_query($Cnn, $strjoin) or die(mysqli_error($Cnn));
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($mycourses = mysqli_fetch_array($result)) {
+                                $course_id = $mycourses["course_id"];
+                        ?>
+                                <td>
+                                    <a href="<?php echo "topics.php?course_id=$course_id"; ?>" style="text-decoration: none;color: black;">
+                                        <div class="card col-sm-4 m-2" style="width:26rem;">
+                                            <img class="card-img-top" src="<?php echo '../Admin/' . $mycourses['course_img'] ?>">
+                                            <div class="card-body">
+                                                <h4 class="card-title"><?php echo $mycourses['course_name'] ?></h4>
+                                                <p class="card-text"><?php echo $mycourses['course_desc'] ?></p>
+                                                <input type="submit" name="btnView" style="margin-left:130px;background-color:#0f2d4e;color: #f5b819" class="btn px-5" value="View">
+                                            </div>
+                                        </div>
+                                    </a>
                                 </td>
-                            </tr>
-                    <?php
+                        <?php
+                            }
+                        } else {
+                            echo "<tr><td><h1 class='mx-auto p-5'> You are currently not enrolled in any course.</h1></td></tr>";
                         }
-                    } else {
-                        echo "<tr><td><h1 class='mx-auto p-5'> You are currently not enrolled in any course.</h1></td></tr>";
-                    }
-                    ?>
+                        ?>
+                    </tr>
                 </table>
             </div>
         </div>

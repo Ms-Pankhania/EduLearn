@@ -75,7 +75,7 @@ if(!isset($_SESSION['admin_id']))
                     <table class="table table-hover table-responsive ">
                         <thead class="table-dark">
                             <tr>
-                                <td scope="col">Username</td>
+                                <td scope="col">Full Name</td>
                                 <td scope="col">Email Id</td>
                                 <td scope="col">Contact No.</td>
                                 <td scope="col">Registration Date</td>
@@ -88,7 +88,7 @@ if(!isset($_SESSION['admin_id']))
                             while ($records = mysqli_fetch_array($rs)) {
                             ?>
                                 <tr>
-                                    <td><?php echo $records["user_name"]; ?></td>
+                                    <td><?php echo $records["first_name"]." ".$records["last_name"]; ?></td>
                                     <td><?php echo $records["email_id"]; ?></td>
                                     <td><?php echo $records["contact_no"]; ?></td>
                                     <td><?php echo $records["registration_date"]; ?></td>

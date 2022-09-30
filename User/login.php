@@ -28,12 +28,12 @@ unset($_SESSION['user_email']);
     if (isset($_REQUEST["btnlogin"])) {
         $txtusername = $_REQUEST["txtusername"];
         $txtpwd = $_REQUEST["txtpwd"];
-        $strUp = "select * from tblregister where email_id='$txtusername' and password='$txtpwd'";
+        $strUp = "select * from tblregister where email_id='$txtusername' and password='$txtpwd' and status=1";
         $rs = mysqli_query($Cnn, $strUp) or die(mysqli_error($Cnn));
         $rec = mysqli_fetch_array($rs);
         if (mysqli_num_rows($rs) == 1) {
-            echo $_SESSION['user_id'] = $rec['user_id'];
-            echo $_SESSION['user_email'] = $rec['email_id'];
+            $_SESSION['user_id'] = $rec['user_id'];
+            $_SESSION['user_email'] = $rec['email_id'];
             header("Location:userProfile.php");
         } else {
             $msg = urlencode('Invalid Login Credentials');

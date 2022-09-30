@@ -40,7 +40,8 @@
 
   <!-- Copyright -->
   <div class="text-center p-3" style="background-color:#0f2d4e;font-size:18px;">
-    © 2020 Copyright : Made With &hearts; by Mohini Chaudhary and Mariyam Pankhania
+    © 2020 Copyright : Made With &hearts; by Mohini Chaudhary and Mariyam Pankhania<br/> <a href="../Admin/login.php">An Admin?</a> 
+
     </div>
   <!-- Copyright -->
 </footer>

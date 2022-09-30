@@ -28,7 +28,7 @@ if(!isset($_SESSION['admin_id'])){
     if (isset($_SESSION["CourseID"])) {
       $strUp = "select * from tblcourse where course_id={$_SESSION["CourseID"]}";
       $rs = mysqli_query($Cnn, $strUp) or die(mysqli_error($Cnn));
-      $rec = mysqli_fetch_array($rs);
+      $records = mysqli_fetch_array($rs);
     }
 
     if (isset($_REQUEST["btn_addCourse"])) {
@@ -84,28 +84,28 @@ if(!isset($_SESSION['admin_id'])){
         <br />
         <div class="form-group">
           <label for="course_name">Course Name :</label>
-          <input type="text" class="form-control" name="course_name" value="<?php if (isset($rec)) echo $rec["course_name"]; ?>" aria-describedby="coursename" placeholder="Enter Name of Course">
+          <input type="text" class="form-control" name="course_name" value="<?php if (isset($records)) echo $records["course_name"]; ?>" aria-describedby="coursename" placeholder="Enter Name of Course">
         </div>
         <br />
         <div class="form-group">
           <label for="course_desc">Course Description :</label>
-          <textarea class="form-control" name="course_desc" rows="3" placeholder="Enter Course Description"><?php if (isset($rec)) echo $rec["course_desc"]; ?></textarea>
+          <textarea class="form-control" name="course_desc" rows="3" placeholder="Enter Course Description"><?php if (isset($records)) echo $records["course_desc"]; ?></textarea>
         </div>
         <br />
         <div class="form-group">
           <label for="course_image">Course Image :</label>
-          <input type="hidden" name="hdnImage" value="<?php if (isset($rec)) echo $rec["course_img"]; ?>">
+          <input type="hidden" name="hdnImage" value="<?php if (isset($records)) echo $records["course_img"]; ?>">
           <?php if (isset($_SESSION["CourseID"])) { ?>
             <img height="150px" width="150px" src="
             <?php
-            if (isset($rec)) {
-              echo $rec["course_img"];
+            if (isset($records)) {
+              echo $records["course_img"];
             }
             ?>" />
           <?php } ?>
 
-          <input type="file" class="form-control" name="course_image" value="<?php if (isset($rec)) {
-                                                                                echo $rec['course_img'];
+          <input type="file" class="form-control" name="course_image" value="<?php if (isset($records)) {
+                                                                                echo $records['course_img'];
                                                                               } ?>" placeholder="Enter Image for Course">
         </div>
         <br />

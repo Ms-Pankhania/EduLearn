@@ -52,12 +52,12 @@ include_once "../Admin/connection.php";
   <div style="font-size: 30px; margin-top:50px; margin-left: 200px;">
     <h1>Our Goals :</h1>
     <p >
-      <li>Enhance the quality of learning and teaching.</li><br/>
-      <li>Everything at a single platform.</li><br/>
-      <li>To make learning more interesting as videos are more persuasive than any other content type.</li><br/>
-      <li>To provide a simple and practical learning experience.</li><br/>
-      <li>Improve user-accessibility and time flexibility to engage learners in the learning process.</li><br/>
-      <li>Improve the efficiency and effectiveness.</li><br/>
+      <li>Enhance the quality of learning and teaching.</li>
+      <li>Everything at a single platform.</li>
+      <li>To make learning more interesting as videos are more persuasive than any other content type.</li>
+      <li>To provide a simple and practical learning experience.</li>
+      <li>Improve user-accessibility and time flexibility to engage learners in the learning process.</li>
+      <li>Improve the efficiency and effectiveness.</li>
 
     </p>
   </div>

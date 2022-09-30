@@ -21,7 +21,7 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             &#9993;<span class="badge text-bg-light" id="cntNotif"><?php echo mysqli_num_rows($res); ?></span>
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu bg-light">
                             <?php
                             if (mysqli_num_rows($res) > 0) {
                                 while ($rec = mysqli_fetch_array($res)) {
@@ -29,6 +29,7 @@
                                     <li>
                                         <a class="dropdown-item" href="newRequests.php">
                                             <?php echo "You have a notification from <b>" . $rec["email_id"] . "</b>" ?>
+                                            <hr/>
                                         </a>
                                     </li>
                                 <?php

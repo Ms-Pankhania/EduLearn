@@ -1,8 +1,8 @@
 <?php ob_start();
 include_once "connection.php";
-if(!isset($_SESSION['admin_id'])){
+if (!isset($_SESSION['admin_id'])) {
     header("Location:login.php");
-  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,8 +43,8 @@ if(!isset($_SESSION['admin_id'])){
             <?php include_once "_nav.php"; ?>
             <form method="POST" enctype="multipart/form-data" class="mx-3 p-3 jumbotron bg-light">
                 <?php
-                if (isset($msg)) {
-                    echo $msg;
+                if (isset($_GET['msg'])) {
+                    echo '<div class="alert alert-info ml-5 mt-2 col-sm-12">' . $_GET['msg'] . '</div>';
                 }
                 ?>
                 <div class="heading text-center">
@@ -73,7 +73,7 @@ if(!isset($_SESSION['admin_id'])){
                         if (mysqli_num_rows($res) > 0) {
                             while ($rec = mysqli_fetch_array($res)) {
                         ?>
-                        <option value="<?php echo $rec["course_id"] ?>"><?php echo $rec["course_name"]; ?></option>
+                                <option value="<?php echo $rec["course_id"] ?>"><?php echo $rec["course_name"]; ?></option>
                         <?php
                             }
                         }

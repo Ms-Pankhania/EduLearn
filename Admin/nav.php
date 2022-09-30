@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="../CSS/style.css">
 
 <div class="d-flex flex-sm-column flex-shrink-0 p-4 text-bg-dark">
-  <a href="dashboard.php" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+  <a href="../User/index.php" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
     <i class='bx bxs-graduation me-2' style='color:#f5b819'></i>
     <span class="fs-4">EduLearn</span>
   </a>

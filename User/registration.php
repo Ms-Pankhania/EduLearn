@@ -63,11 +63,11 @@ include_once "../Admin/connection.php";
         </div>
         <br />
         <div class="form-group">
-          <input type="text" class="form-control" name="txtpwd" placeholder="Password" />
+          <input type="password" class="form-control" name="txtpwd" placeholder="Password" />
         </div>
         <br />
         <div class="form-group">
-          <input type="text" class="form-control" name="txtcpwd" placeholder="Repeat Your Password" />
+          <input type="password" class="form-control" name="txtcpwd" placeholder="Repeat Your Password" />
         </div>
         <br />
         <center>

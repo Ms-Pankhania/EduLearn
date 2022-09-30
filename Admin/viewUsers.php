@@ -29,8 +29,8 @@ if(!isset($_SESSION['admin_id']))
         $rs = mysqli_query($Cnn, $str);
         if (isset($_REQUEST["DelID"])) {
             $strDel = "delete from tblregister where user_id={$_REQUEST["DelID"]}";
-            $dres = mysqli_query($Cnn, $strDel);
-            if (mysqli_num_rows($dres) == 0) {
+            $dres = mysqli_query($Cnn, $strDel) or die(mysqli_error($Cnn));
+            if (mysqli_num_rows($dres) != 0) {
                 $msg = urlencode('This user has given feedback. Please delete their feedback before deleting them.');
                 header("Location:viewUsers.php?msg=" . $msg);
             } else {

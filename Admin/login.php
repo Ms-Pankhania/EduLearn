@@ -36,9 +36,9 @@ unset($_SESSION['admin_email']);
     ?>
     <div class="row text-center">
         <div class="col-sm-12 px-0">
-            <form method="post" class="p-5 jumbotron bg-secondary text-light" style="margin:auto;width:400px;margin-top:70px">
+            <form method="post" class="p-5 jumbotron bg-dark text-light" style="margin:auto;width:500px;margin-top:70px">
 
-                <h1 class="text-center "> LOGIN </h1>
+                <h1 class="text-center ">ADMIN LOGIN </h1>
                 <div class="form-group p-2">
                     <input type="text" class="form-control" name="txtusername" aria-describedby="txtusername" placeholder="Enter Email ">
                 </div>
@@ -48,7 +48,7 @@ unset($_SESSION['admin_email']);
                 </div>
                 <br />
                 <div class="form-group text-center">
-                    <input type="submit" class="btn btn-light" name="btnlogin" value="LOG IN">
+                    <input type="submit" class="btn btn-light px-5" name="btnlogin"  value="LOG IN">
                 </div>
                 <?php
                 if (isset($_GET['msg'])) {

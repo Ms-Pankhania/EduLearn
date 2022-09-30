@@ -85,7 +85,7 @@ include_once "connection.php";
             </thead>
             <tbody>
               <?php
-              $str = "select * from tbltopic where course_id=1";
+              $str = "select * from tbltopic";
               $res = mysqli_query($Cnn, $str);
               while ($rec = mysqli_fetch_array($res)) {
                 // $str="select * from tbltopic";
